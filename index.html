@@ -70,15 +70,9 @@
     }
 
     function startcall() {
-      const callSettings = {
-        number: document.getElementById("number").value,
-        video: {
-          sendVideo: false,
-          receiveVideo: false
-        }
-      };
+      const number = document.getElementById("number").value;
 
-      currentCall = sdk.call(callSettings);
+      currentCall = sdk.call(number);
 
       currentCall.on(VoxImplant.CallEvents.Connected, () => {
         console.log("Call connected!");
@@ -87,6 +81,7 @@
       currentCall.on(VoxImplant.CallEvents.Disconnected, () => {
         console.log("Call disconnected!");
         currentCall = null;
+        call.hangup();
       });
 
       currentCall.on(VoxImplant.CallEvents.Failed, (e) => {
