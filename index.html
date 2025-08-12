@@ -29,25 +29,27 @@
     // Inicialização simples do SDK (ajuste node/login conforme seu ambiente)
     const sdk = VoxImplant.getInstance();
 
-    (async () => {
-      try {
-        await sdk.init({
-          node: VoxImplant.ConnectionNode.NODE_9,
+    initParameters = {
+          node:ACCOUNT_NODE,
           micRequired: true,
-          videoSupport: false
-        });
-        console.log("SDK inicializado");
+          showDebugInfo: true,
+          showWarnings: true
+    }
 
-        await sdk.connect();
-        console.log("Conectado ao VoxImplant");
+    try {
+        await sdk.init(initParameters);
+        console.log("sdk inicializado");
+    } catch (e) {
+        // SDK init failure
+        console.error("Falha: ", e);
+    }
+      
+    await sdk.connect();
+    
+    // Substitua pelo seu login e senha
+    await sdk.login("vitor@voicecall.vlima.n9.voximplant.com", "12345678");
+    console.log("Login realizado com sucesso");
 
-        // Substitua pelo seu login e senha
-        await sdk.login("seu_usuario@app.account.voximplant.com", "sua_senha");
-        console.log("Login realizado com sucesso");
-      } catch (err) {
-        console.error("Erro na inicialização:", err);
-      }
-    })();
   </script>
 </body>
 </html>
