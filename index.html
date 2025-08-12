@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste VoxImplant Calls</title>
+  <script src="https://cdn.jsdelivr.net/npm/voximplant-websdk@4.9.0-2915/voximplant.min.js"></script>
+  <script src="index.js" defer></script>
+</head>
+<body>
+  <h2>Teste de Chamada VoxImplant</h2>
+
+  <div>
+    <label for="number">Número/Usuário:</label>
+    <input type="text" id="number" placeholder="destinatario@app.account.voximplant.com">
+    <button id="call" onclick="startcall()">Ligar</button>
+  </div>
+
+  <div style="margin-top:20px;">
+    <button id="answer">Atender</button>
+    <button id="decline">Recusar</button>
+    <button id="endcall">Encerrar</button>
+  </div>
+
+  <div style="margin-top:20px;">
+    <pre id="log"></pre>
+  </div>
+
+  <script>
+    // Inicialização simples do SDK (ajuste node/login conforme seu ambiente)
+    const sdk = VoxImplant.getInstance();
+
+    (async () => {
+      try {
+        await sdk.init({
+          node: VoxImplant.ConnectionNode.NODE_9,
+          micRequired: true,
+          videoSupport: false
+        });
+        console.log("SDK inicializado");
+
+        await sdk.connect();
+        console.log("Conectado ao VoxImplant");
+
+        // Substitua pelo seu login e senha
+        await sdk.login("seu_usuario@app.account.voximplant.com", "sua_senha");
+        console.log("Login realizado com sucesso");
+      } catch (err) {
+        console.error("Erro na inicialização:", err);
+      }
+    })();
+  </script>
+</body>
+</html>
