@@ -28,7 +28,7 @@ sdk.on(VoxImplant.Events.IncomingCall, (e) => {
     });
 });
 
-const startcall = () => {
+function startcall() {
     // prepare settings
     const callSettings = {
         number: document.getElementById("number").value,
