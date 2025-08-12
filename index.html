@@ -30,14 +30,14 @@
     const sdk = VoxImplant.getInstance();
 
     initParameters = {
-          node:ACCOUNT_NODE,
+          node:VoxImplant.ConnectionNode.NODE_9,
           micRequired: true,
           showDebugInfo: true,
           showWarnings: true
     }
 
     try {
-        await sdk.init(initParameters);
+        sdk.init(initParameters);
         console.log("sdk inicializado");
     } catch (e) {
         // SDK init failure

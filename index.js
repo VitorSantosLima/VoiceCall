@@ -1,4 +1,5 @@
 // subscribe to the IncomingCall event
+const sdk = VoxImplant.getInstance();
 sdk.on(VoxImplant.Events.IncomingCall, (e) => {
 
     // add function to answer a call
