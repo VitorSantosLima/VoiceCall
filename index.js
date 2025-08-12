@@ -2,10 +2,6 @@ function startcall() {
     // prepare settings
     const callSettings = {
         number: document.getElementById("number").value,
-        video: {
-            sendVideo: false,
-            receiveVideo: false
-        }
     };
 
     // start the call
