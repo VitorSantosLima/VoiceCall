@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Teste VoxImplant Calls</title>
   <script src="https://cdn.jsdelivr.net/npm/voximplant-websdk@4.9.0-2915/voximplant.min.js"></script>
-  <script src="index.js" defer></script>
 </head>
 <body>
   <h2>Teste de Chamada VoxImplant</h2>
@@ -12,7 +11,7 @@
   <div>
     <label for="number">Número/Usuário:</label>
     <input type="text" id="number" placeholder="destinatario@app.account.voximplant.com">
-    <button id="call" onclick="startcall()">Ligar</button>
+    <button id="call">Ligar</button>
   </div>
 
   <div style="margin-top:20px;">
@@ -26,37 +25,86 @@
   </div>
 
   <script>
-    // Inicialização simples do SDK (ajuste node/login conforme seu ambiente)
     const sdk = VoxImplant.getInstance();
+    let currentCall = null;
 
-    async function intialize() {
-
-    const initParameters = {
-        node:VoxImplant.ConnectionNode.NODE_9,
+    async function initialize() {
+      const initParameters = {
+        node: VoxImplant.ConnectionNode.NODE_9,
         micRequired: true,
         showDebugInfo: true,
         showWarnings: true
-    };
-      
-    try {
+      };
+
+      try {
         await sdk.init(initParameters);
         console.log("SDK inicializado");
-    } catch (e) {
-        console.log("Falha ao inicializar SDK ", e.code,e.message);
-    };
-      
-    await sdk.connect();
+      } catch (e) {
+        console.log("Falha ao inicializar SDK", e.code, e.message);
+      }
 
-    sdk.on(VoxImplant.Events.AuthResult, function (e) {
-        if (e.result === true){
-          console.log("Login com sucesso")
+      await sdk.connect();
+
+      sdk.on(VoxImplant.Events.AuthResult, function (e) {
+        if (e.result === true) {
+          console.log("Login com sucesso");
         } else {
           console.log(e.code, e.message);
         }
+      });
+
+      sdk.on(VoxImplant.Events.IncomingCall, (e) => {
+        console.log("Chamada recebida!");
+        currentCall = e.call;
+
+        document.getElementById("answer").onclick = () => {
+          currentCall.answer();
+        };
+
+        document.getElementById("decline").onclick = () => {
+          currentCall.decline();
+        };
+      });
+
+      await sdk.login(`vitor@voicecall.vlima.voximplant.com`, "12345678");
+    }
+
+    function startcall() {
+      const callSettings = {
+        number: document.getElementById("number").value,
+        video: {
+          sendVideo: false,
+          receiveVideo: false
+        }
+      };
+
+      currentCall = sdk.call(callSettings);
+
+      currentCall.on(VoxImplant.CallEvents.Connected, () => {
+        console.log("Call connected!");
+      });
+
+      currentCall.on(VoxImplant.CallEvents.Disconnected, () => {
+        console.log("Call disconnected!");
+        currentCall = null;
+      });
+
+      currentCall.on(VoxImplant.CallEvents.Failed, (e) => {
+        console.log("Call failed!", e);
+      });
+    }
+
+    // Botões
+    document.getElementById("call").addEventListener("click", startcall);
+    document.getElementById("endcall").addEventListener("click", () => {
+      if (currentCall) {
+        currentCall.hangup();
+        currentCall = null;
+      }
     });
 
-    await sdk.login(`vitor@voicecall.vlima.voximplant.com`, "12345678");
-    }
+    // Inicializa o SDK
+    initialize();
   </script>
 </body>
 </html>
