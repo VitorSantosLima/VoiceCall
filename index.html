@@ -44,10 +44,10 @@
         console.error("Falha: ", e);
     }
       
-    await sdk.connect();
+    sdk.connect();
     
     // Substitua pelo seu login e senha
-    await sdk.login("vitor@voicecall.vlima.n9.voximplant.com", "12345678");
+    sdk.login("vitor@voicecall.vlima.n9.voximplant.com", "12345678");
     console.log("Login realizado com sucesso");
 
   </script>
