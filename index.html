@@ -11,7 +11,7 @@
   <div>
     <label for="number">Número/Usuário:</label>
     <input type="text" id="number" placeholder="Digite o número">
-    <button id="call">Ligar</button>
+    <button onclick="startcall()">Ligar</button>
   </div>
 
   <div style="margin-top:20px;">
@@ -90,16 +90,12 @@
     }
 
     // Botões
-    document.getElementById("call").addEventListener("click", startcall);
     document.getElementById("endcall").addEventListener("click", () => {
       if (currentCall) {
         currentCall.hangup();
         currentCall = null;
       }
     });
-
-    // Inicializa o SDK
-    //initialize();
   </script>
 </body>
 </html>
