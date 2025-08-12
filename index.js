@@ -1,11 +1,9 @@
 function startcall() {
     // prepare settings
-    const callSettings = {
-        number: document.getElementById("number").value,
-    };
+    const number = document.getElementById("number").value;
 
     // start the call
-    const call = sdk.call(callSettings);
+    const call = sdk.callPSTN(number);
 
     // subscribe to the events if necessary
     call.addEventListener(VoxImplant.CallEvents.Connected, () => {
