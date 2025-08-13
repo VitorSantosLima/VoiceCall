@@ -1,4 +1,4 @@
-const sdk = VoxImplant.getInstance();
+//const sdk = VoxImplant.getInstance();
 let currentCall = null;
 
 async function initialize() {
