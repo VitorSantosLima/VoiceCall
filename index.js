@@ -1,4 +1,4 @@
-//const sdk = VoxImplant.getInstance();
+const sdk = VoxImplant.getInstance();
 let currentCall = null;
 
 async function initialize() {
@@ -79,7 +79,7 @@ function declinecall() {
 
 function answercall (){
     sdk.on(VoxImplant.Events.IncomingCall, function (e) {
-        currentCall = e.call;
+        currentCall.answer();
         console.log("Chamada recebida de: ", newCall.number);
     })
 }
