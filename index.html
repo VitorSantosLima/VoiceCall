@@ -15,9 +15,9 @@
   </div>
 
   <div style="margin-top:20px;">
-    <button id="answer">Atender</button>
-    <button id="decline">Recusar</button>
-    <button id="endcall">Encerrar</button>
+    <button onclick="answercall()">Atender</button>
+    <button onclick="declinecall()">Recusar</button>
+    <button onclick="endcall()">Finalizar</button>
   </div>
 
   <div style="margin-top:20px;">
@@ -69,33 +69,8 @@
       await sdk.login(`vitor@voicecall.vlima.voximplant.com`, "12345678");
     }
 
-    function startcall() {
-      const number = document.getElementById("number").value;
-
-      currentCall = sdk.call(number);
-
-      currentCall.on(VoxImplant.CallEvents.Connected, () => {
-        console.log("Call connected!");
-      });
-
-      currentCall.on(VoxImplant.CallEvents.Disconnected, () => {
-        console.log("Call disconnected!");
-        currentCall = null;
-        call.hangup();
-      });
-
-      currentCall.on(VoxImplant.CallEvents.Failed, (e) => {
-        console.log("Call failed!", e);
-      });
-    }
-
-    // Botões
-    document.getElementById("endcall").addEventListener("click", () => {
-      if (currentCall) {
-        currentCall.hangup();
-        currentCall = null;
-      }
-    });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/voximplant-websdk@4.9.0-2915/voximplant.min.js"></script>
+  <script src="index.js" defer></script>
 </body>
 </html>
