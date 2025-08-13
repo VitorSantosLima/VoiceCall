@@ -43,6 +43,7 @@ async function initialize() {
 }
 
 function startcall() {
+    initialize();
     const number = document.getElementById("number").value;
 
     currentCall = sdk.call(number);
