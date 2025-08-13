@@ -42,6 +42,10 @@ async function initialize() {
     await sdk.login(`vitor@voicecall.vlima.voximplant.com`, "12345678");
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    initialize();
+});
+
 function startcall() {
     const number = document.getElementById("number").value;
 
